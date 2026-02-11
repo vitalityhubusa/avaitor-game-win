@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aviator Pro - Perfect Predictor</title>
+    <style>
+        :root { --primary: #ff0040; --bg: #0b0c0d; --gold: #f3ba2f; --neon: #00f2ff; }
+        body { background: var(--bg); color: white; font-family: 'Arial', sans-serif; margin: 0; text-align: center; }
+        
+        .nav { background: #1b1c1d; padding: 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #333; }
+        .bal-box { color: var(--gold); font-weight: bold; border: 1px solid var(--gold); padding: 5px 15px; border-radius: 20px; }
+
+        /* Predictor Style */
+        .predictor-card { background: #111; border: 2px solid var(--neon); border-radius: 15px; width: 220px; margin: 20px auto; padding: 15px; box-shadow: 0 0 20px var(--neon); position: relative; }
+        #next-pred { font-size: 2.8rem; color: var(--neon); font-weight: 900; text-shadow: 0 0 10px var(--neon); }
+        .accuracy-tag { font-size: 0.7rem; color: #4caf50; font-weight: bold; }
+
+        /* Canvas Style */
+        #game-box { position: relative; width: 95%; max-width: 700px; height: 350px; background: #000; margin: 0 auto; border: 1px solid #333; border-radius: 10px; overflow: hidden; }
+        #multiplier { position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); font-size: 5rem; font-weight: 900; z-index: 10; }
+        
+        /* Control Panel */
+        .controls { background: #1b1c1d; width: 95%; max-width: 700px; margin: 15px auto; padding: 20px; border-radius: 20px; box-sizing: border-box; }
+        .bet-btn { width: 100%; padding: 18px; font-size: 1.6rem; font-weight: bold; border: none; border-radius: 10px; cursor: pointer; background: #28a745; color: white; transition: 0.2s; }
+        .cashout { background: #ff9800 !important; }
+        input { background: #000; color: #fff; border: 1px solid #444; padding: 12px; width: 100px; border-radius: 5px; font-size: 1.1rem; text-align: center; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="nav">
+        <div style="font-weight:900; color:var(--primary); font-size: 1.5rem;">AVIATOR AI</div>
+        <div class="bal-box">৳ <span id="balance">0.00</span></div>
+    </div>
+
+    <div class="predictor-card">
+        <div style="font-size: 0.6rem; letter-spacing: 2px;">NEXT SIGNAL</div>
+        <div id="next-pred">SCANNING</div>
+        <div class="accuracy-tag">95.8% SYSTEM ACCURACY</div>
+    </div>
+
+    <div id="game-box">
+        <div id="multiplier">1.00x</div>
+        <canvas id="gameCanvas"></canvas>
+    </div>
+
+    <div class="controls">
+        <input type="number" id="betAmt" value="20" min="20">
+        <button id="actionBtn" class="bet-btn">PLACE BET</button>
+    </div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getDatabase, ref, onValue, update } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+    // Firebase Config (Already provided by you)
+    const firebaseConfig = {
+        apiKey: "AIzaSyBrMOmNOmopMwh35MFs8_u99LbroeLu_4s",
+        authDomain: "avaitor-game-c3d80.firebaseapp.com",
+        databaseURL: "https://avaitor-game-c3d80-default-rtdb.firebaseio.com",
+        projectId: "avaitor-game-c3d80",
+        storageBucket: "avaitor-game-c3d80.firebasestorage.app",
+        messagingSenderId: "1021690556103",
+        appId: "1:1021690556103:web:07407ca44089d0be3d98e2"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const userRef = ref(db, 'users/user_01');
+
+    let balance = 0, isFlying = false, startTime, currentBet = 0;
+    let predTarget = 0, actualTarget = 0;
+
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = 700; canvas.height = 350;
+
+    // Firebase Sync
+    onValue(userRef, (s) => {
+        balance = s.val().balance;
+        document.getElementById('balance').innerText = balance.toFixed(2);
+    });
+
+    // --- Perfect Predictor Logic ---
+    function setupRound() {
+        // Random Predictor Value (e.g., 1.50 to 12.00)
+        predTarget = (Math.random() * (12.00 - 1.50) + 1.50).toFixed(2);
+        
+        // 95% Match, 5% Trap (Instant Crash)
+        if (Math.random() > 0.05) {
+            actualTarget = predTarget; // Perfect Match
+        } else {
+            actualTarget = 1.00; // Psychological Trap
+        }
+
+        document.getElementById('next-pred').innerText = predTarget + "x";
+        document.getElementById('multiplier').style.color = "white";
+        document.getElementById('multiplier').innerText = "1.00x";
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    setupRound();
+
+    function drawLine(elapsed) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.beginPath();
+        ctx.strokeStyle = "#ff0040";
+        ctx.lineWidth = 5;
+        ctx.shadowBlur = 20;
+        ctx.shadowColor = "#ff0040";
+        ctx.moveTo(0, canvas.height);
+        
+        // Dynamic Curve Logic
+        let x = elapsed * 110;
+        let y = canvas.height - (Math.pow(elapsed, 1.6) * 25);
+        ctx.lineTo(x, y);
+        ctx.stroke();
+    }
+
+    function animate() {
+        if (!isFlying) return;
+        let elapsed = (Date.now() - startTime) / 1000;
+        let val = (1 + Math.pow(elapsed, 1.4) * 0.15).toFixed(2);
+        
+        document.getElementById('multiplier').innerText = val + "x";
+        drawLine(elapsed);
+
+        if (parseFloat(val) >= actualTarget) {
+            isFlying = false;
+            finishGame();
+        } else {
+            requestAnimationFrame(animate);
+        }
+    }
+
+    function finishGame() {
+        const m = document.getElementById('multiplier');
+        m.style.color = "red";
+        m.innerText = actualTarget <= 1.00 ? "INSTANT CRASH!" : "FLEW AWAY!";
+        
+        setTimeout(() => {
+            document.getElementById('actionBtn').innerText = "PLACE BET";
+            document.getElementById('actionBtn').className = "bet-btn";
+            setupRound(); // AUTO RESET FOR NEXT ROUND
+        }, 2500);
+    }
+
+    document.getElementById('actionBtn').onclick = function() {
+        if(!isFlying) {
+            let amt = parseFloat(document.getElementById('betAmt').value);
+            if(balance < amt) return alert("Deposit Money!");
+            balance -= amt;
+            update(userRef, {balance});
+            currentBet = amt; isFlying = true; startTime = Date.now();
+            this.innerText = "CASH OUT";
+            this.className = "bet-btn cashout";
+            animate();
+        } else {
+            let winM = parseFloat(document.getElementById('multiplier').innerText);
+            let winA = currentBet * winM;
+            balance += winA;
+            update(userRef, {balance});
+            isFlying = false;
+            alert("Victory! You won ৳" + winA.toFixed(2));
+        }
+    };
+</script>
+</body>
+</html>
